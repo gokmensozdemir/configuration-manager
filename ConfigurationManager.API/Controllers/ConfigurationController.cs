@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ConfigurationManager.API.Controllers
 {
     [ApiController]
-    [Route("configurations")]
+    [Route("api/configurations")]
     public class ConfigurationController : ControllerBase
     {
         private readonly IConfigurationService _configurationService;

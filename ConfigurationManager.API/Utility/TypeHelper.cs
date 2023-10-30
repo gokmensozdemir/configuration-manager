@@ -14,20 +14,15 @@ namespace ConfigurationManager.API.Utility
 
         public static bool IsValidType(string value, string type)
         {
-            if (type == "Boolean")
+            try
             {
-                return value == "1" || value == "0";
+                Convert.ChangeType(value, ValidTypes[type]);
+                return true;
             }
-            else if (type == "Double")
+            catch
             {
-                return double.TryParse(value, out _);
+                return false;
             }
-            else if (type == "Int")
-            {
-                return int.TryParse(value, out _);
-            }
-
-            return true;
         }
     }
 }
