@@ -1,0 +1,49 @@
+version: '3'
+services:
+ configuration-manager-api:
+   container_name: configuration-manager-api
+   restart: always
+   build:
+     context: .
+     dockerfile: Dockerfile
+   ports:
+     - "8080:8080"
+   depends_on:
+     - my-redis
+     - my-mongodb
+   networks:
+     - test-network
+
+ my-redis:
+   container_name: my-redis
+   image: redis:latest
+   ports:
+     - "6379:6379"
+   restart: always
+   environment:
+      - REDIS_PASSWORD=WlhsS2FHSkhZMmx
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+   networks:
+     - test-network
+
+ my-mongodb:
+   container_name: my-mongodb
+   image: mongo:latest
+   restart: always
+   environment:
+     MONGO_DATA_DIR: /data/db
+     MONGO_LOG_DIR: /dev/null
+     MONGO_INITDB_ROOT_USERNAME: dbadmin
+     MONGO_INITDB_ROOT_PASSWORD: WlhsS2FHSkhZMmx
+   volumes:
+     - mongo-data:/data/db
+   ports:
+     - "27017:27017"
+   networks:
+     - test-network
+
+volumes:
+ mongo-data:
+networks:
+ test-network:
